@@ -4,15 +4,15 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// Serve the Angular build files
-app.use(express.static(path.join(__dirname, "dist/Health-Challenge-Tracker")));
+// **Ensure the correct build folder path**
+const distPath = path.join(__dirname, "dist", "Health-Challenge-Tracker"); // Ensure lowercase if needed
 
-// Handle Angular routing, return index.html for unknown routes
+app.use(express.static(distPath));
+
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist/Health-Challenge-Tracker/index.html"));
+  res.sendFile(path.join(distPath, "index.html"));
 });
 
-// Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`✅ Server is running on port ${PORT}`);
 });
